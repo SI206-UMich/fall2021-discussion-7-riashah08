@@ -21,11 +21,15 @@ def read_file(filename):
 
 def find_word(string_list):
     """ Return a list of words that contain three digit numbers in the middle. """
-
+    li = []
     # initialize an empty list
-
+    y = "[a-z]+\d\d\d[a-z]+"
     # define the regular expression
-
+    for l in string_list:
+        l = l.rstrip()
+        if re.search(y, l):
+            li.append(l)
+    return li
     # loop through each line of the string list 
 
     # find all the words that match the regular expression in each line
@@ -33,16 +37,21 @@ def find_word(string_list):
     # loop through the found words and add the words to your empty list 
 
     #return the list of all words that start with the letter B, E, or T
-    pass
+    
 
 
 def find_days(string_list):
     """ Return a list of days from the list of strings the dates format in the text are MM/DD/YYYY. """  
-
+    new_list= []
+    n_li = []
     # initialize an empty list
-
+    st = r'(\b\d{1,2}[\/](\d{1,2})[\/](\d{4})\b)'
     # define the regular expression
-
+    for l in string_list:
+        l = re.findall(st, l)
+        for i in l:
+            new_list.append(i[1])
+    return new_list
     # loop through each line of the string list
     
     # find all the dates that match the regular expression in each line
@@ -54,12 +63,17 @@ def find_days(string_list):
 
 def find_domains(string_list):
     """ Return a list of web address domains from the list of strings the domains of a wbsite are after www. """
-
+    new_list = []
     # initialize an empty list
-
+    reg_exp = r'https?://[\w.]+'
     # define the regular expression
-
+    for line in string_list:
+        x = re.findall(reg_exp, line)
     # loop through each line of the string list
+        for i in x:
+            domain= i.split('//')[1].strip('www.')
+            new_list.append(domain)
+    return new_list
 
     # find all the domains that match the regular expression in each line
 
